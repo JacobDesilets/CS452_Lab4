@@ -1,0 +1,58 @@
+Lab 4: Viewing and Lighting an Unknown Object
+
+In this lab, you are given vertices and faces for an object. You need to use the look at method to view the object from an alternate viewpoint, and add lighting to the object. 
+
+Code practice material:
+All material on Viewing, Lighting, and Lighting Continued.
+Material at:
+https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/EIGHTH_EDITION/CODE/05/
+(see 'ortho', and 'perspective')
+Material at:
+https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/EIGHTH_EDITION/CODE/06/
+(see 'shadedCube')
+One component will require you to perform self-driven investigation via ChatGPT of loading in vertices and faces from a PLY file.
+
+
+To work with this lab, make sure you download the following files into a single directory: lab4.html, lab4.js, object.js, object.ply, and include the Common folder one level above. Load the file 'lab4.html' in your browser. You should see a light gray canvas. Here's why: there is a big light gray object sitting right on top of the camera. The code in lab4.html and lab4.js does draw the object, but because it sits on top of the camera, you cannot see the object itself (imagine a big cave enclosing you, then you would  not really see the outside of the cave. At the moment, the object is kind of like that cave). 
+
+In this draft version of the code, I have manually created the vertices and faces as array in object.js, so that you can start on writing viewing and lighting code without worrying about loading the 3D model. However, 3D models are never provided this way, and are defined using model file formats such as PLY and OBJ. For full credit, you need to replace the code that accesses the manual vertices and faces definitions from object.js with a block of code that loads the vertices and faces from the PLY file, 'object.ply'. For this, you will be exploring the use of ChatGPT, as discussed further in Req5 below.
+
+You need to fulfill the following requirements for this lab:-
+
+Req1) Set up the camera position using the look at method. You must position your camera so that you can reveal the identity of your object. Note: you are NOT permitted to use the lookAt() function provided by the authors in MV.js for this lab.
+
+Req2) Implement two buttons, one that creates a camera with orthographic projection called 'Orthographic', and one that creates a camera with perspective projection called 'Perspective'. You must use set up projection matrices for each type of projection. For the projective transformation, you are free to choose either an asymmetric or a symmetric frustum. For the symmetric frustum, you are free to specify right, top, near, and far planes, or near plane, far plane, aspect ratio, and field of view in y. Note: you are NOT permitted to use the functions ortho(), frustum(), and perspective() provided by the authors in MV.js for this lab.
+
+Req3) Implement two buttons that each switch on and switch off two different lights. Each light must have ambient, diffuse, and specular components. You can choose between point light source, spotlight, and directional light source. One button should switch on or off one kind of light source, and the other should switch on a different kind of light source. Example: LightButton1 can switch on and switch off a point light source. LightButton2 can switch on and switch off a spotlight source. If you use a spotlight and a point light source, they should each be at different locations from each other. Using LightButton1 and LightButton2, I should be able to switch on both lights, or just one of the lights, or switch off all lights.
+
+For this lab, you are not permitted to use ambient light source on its own (if you want, you can use it in conjunction with another light source). 
+
+Req4) Implement one button that toggles the specular reflection output, called 'Specular'. When switched on (i.e., when you press the button an odd number of times), the object should have ambient, diffuse, and specular reflection. When switched off (i.e., when you press the button an even number of times), the object should have just ambient and diffuse reflection. When showing specular reflection, your chosen viewpoint should reveal specular highlights on the object.
+
+The object must have interpolated shading, and not flat shading. You can choose whether you interpolate colors or normals, i.e., whether you implement Gouraud shading or whether you implement Phong shading.
+
+Req5) Your README should discuss your implementation method. Your README should also name the object (i.e., you should provide its identity). If the object is an Eames chair, but you call it a chair because you did not know whether it is an Eames chair, a lawn chair, or a Poang chair, that is fine. But if the object is a chair, and you call it a house, you will lose points. No, the actual object is not a chair, that was just a hypothetical explanation. Your README should also discuss the process you employed to perform your ChatGPT investigation, including questions you asked, and output you received. You can share a screenshot as a separate image file, and write down the name of the screenshot in your README. Please include your name(s) in lab4.js and the README file.
+
+The lab is fairly challenging so get started soon! At the moment, the object is not set up for you to see its identity that easily. In particular, it will be hard for you to set up your camera before you set up your lights and object materials: without light, it is nearly impossible to tell what is the front of the object and what is the back of the object. As a hint: when setting up your camera with the look at method, it is easier to have your 'at' point as the center of the object, which is currently at the origin (you will not really be observing the center point, but it is a good anchor point to set up your camera coordinate system). Once you have your lights, you will need to try out a variety of eye points to assist you with revealing your object.
+
+EXTRA CREDIT OPTION:
+Replace the code that references vertices and faces from object.js with code to load vertices and faces from the PLY file object.ply. This portion is designed to encourage students to self-investigate the benefit of ChatGPT in assisting you with programming. Being a self-directed portion, there are multiple approaches that you can take, and the idea is for you to strengthen your code researching skills. 
+	- One recommended approach is to ask ChatGPT to show you how to load a ply file and get access to the vertices and faces as individual arrays. ChatGPT is likely to give you code to parse the ply file. The benefit of this is that you have low-level parsing code for PLYs.
+	- A second approach is to ask ChatGPT to help you with using the popular library THREE.js, by asking ChatGPT how to use THREE.js to load a ply file and get access to the vertices and faces as individual arrays. The benefit of this is that you get the opportunity to see how THREE.js is used, which being a large library, allows you to open other types of model files such as OBJs. 
+Note that both times I kept mentioning "get access to the vertices and faces as individual arrays". You will find that if you don't make this clear to WebGL, especially for the version that uses THREE.js, ChatGPT will not give you direct access to the vertices and arrays in a fashion usable later. Further, ChatGPT provides template code mixed in with other tasks such as visualizing the loaded object. It is your task to determine what parts of the ChatGPT code are appropriate for your code, acquire only the relevant portions, and tie them into your code. If you use THREE.js, ChatGPT may provide you other assistance code, e.g., using the THREE.js renderer to visualize the loaded object. You will likely not need this, and only need the loader. If you use THREE.js, you will need to make sure you remember to tie in the THREE.js library as a script in the HTML file. Though THREE.js has viewing and lighting code built in, YOU ARE NOT ALLOWED TO USE THREE.js VIEWING AND LIGHTING CODE IN THIS LAB!
+
+Note that if you run into issues here, you will be expected to continue asking ChatGPT for assistance till you get help. Given that I have had success in seeking ChatGPT's assistance here, I reserve the right to provide delayed assistance given that this is now moved to extra credit, as at this time, my effort is directed toward providing assistance on the required sections.
+
+As additional extra credit, you can import and use an object of your own choosing, in whatever file format you like. If you do so, please include snapshots of the end results, so that just in case I cannot run your code, I have access to your outputs. 
+
+Deliverable:
+
+Please turn in a single .zip file, 'lab4.zip'. PLEASE ZIP EVERYTHING, i.e. INCLUDE YOUR Common/ FOLDER and the object.js and object.ply files FOR THIS SUBMISSION! Include EVERYTHING, including any screenshots or any extra files you use for extra credit, e.g., new ply or obj files.
+
+Scoring Rubric (out of 20 points, scaled down to 6; 3 points are added separately for extra credit, i.e., with extra credit you would be eligible for a total of 6+3 or 9 points)
+1) 5 points for setting up the camera using the look at method to reveal the identity of the object.These points include identifying the object in the README.
+2) 4 points for implementing orthographic and perspective projections.
+3) 5 points for implementing two different lights.
+4) 5 points for implementing specular and non-specular toggle
+6) 1 points for discussing your implementation in the README, as per Req5 above. 
+Extra Credit: 3 points separately to the scaled down grade (2 for the load, and 1 for a different object).
